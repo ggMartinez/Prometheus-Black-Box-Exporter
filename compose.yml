@@ -1,0 +1,95 @@
+services:
+  blackbox-exporter:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    ports:
+      - 9115:9115
+    container_name: blackbox_exporter
+    volumes:
+      - ./Configurations/BlackboxExporter/Blackbox.yml:/config/blackbox.yml
+    image: quay.io/prometheus/blackbox-exporter:latest 
+    command: --config.file=/config/blackbox.yml
+
+
+  prometheus:
+    depends_on:
+      manager:
+        condition: service_healthy
+    image: prom/prometheus:latest
+    container_name: prometheus
+    hostname: prometheus
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    restart: always
+    tty: true
+    volumes:
+      - prometheus_data:/prometheus
+      - ./Configurations/Prometheus/Prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  alertmanager:
+    image: prom/alertmanager:main
+    container_name: alertmanager
+    depends_on:
+      - prometheus
+    tty: true
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    ports:
+      - "9093:9093"
+    volumes:
+      - "alertmanager_data:/data"
+      - "./Configurations/Alertmanager/Alertmanager.yml:/alertmanager/alertmanager.yml"
+      - "./Configurations/Alertmanager/Notification.tmpl:/alertmanager/Notification.tmpl"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    tty: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    restart: unless-stopped
+    depends_on:
+      - prometheus 
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./Configurations/Grafana/DataSources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./Configurations/Grafana/Dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./Configurations/Grafana/BlackBoxExporter.json:/etc/grafana/provisioning/dashboards/BlackBoxExporter.json
+
+
+  manager:
+    image: ggmartinez/blackbox-exporter-discovery-manager 
+    tty: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    ports:
+      - 8000:8000
+    volumes:
+      - manager_data:/var/www/database
+
+    healthcheck:
+      test: curl --fail http://localhost:8000 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  manager_data: {}
+  grafana_data: {}
+  prometheus_data: {}
+  alertmanager_data: {}

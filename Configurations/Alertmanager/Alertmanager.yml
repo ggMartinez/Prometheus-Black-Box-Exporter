@@ -1,0 +1,44 @@
+global:
+  #slack_api_url: 'https://hooks.slack.com/services/T9J8LB9B3/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+  resolve_timeout: 5s
+route:
+  group_wait: 30s
+  group_interval: 30s
+  receiver: 'mail-notifications'
+  routes:
+    - match:
+        severity: 'critical'
+      continue: true
+      receiver: 'mail-notifications'
+    - match:
+        severity: 'warning'
+      continue: true
+      receiver: 'mail-notifications'
+    # - match:
+    #     severity: 'critical'
+    #   continue: true
+    #   receiver: 'slack-notifications'
+    # - match:
+    #     severity: 'warning'
+    #   receiver: 'slack-notifications'
+
+receivers:
+  - name: 'mail-notifications'
+    email_configs:
+    - to: from@domain.com
+      from: to@domain.com
+      smarthost: smtp-server:587
+      auth_username: username
+      auth_identity: identity
+      auth_password: password
+      send_resolved: true
+  
+  # - name: 'slack-notifications'
+  #   slack_configs:
+  #   - channel: '#CHANNEL_NAME'
+  #     send_resolved: true
+  #     title: '{{ template "custom_summary" . }}'
+  #     text: '{{ template "custom_slack_message" . }}'
+
+templates:
+- '/alertmanager/Notifications.tmpl'
