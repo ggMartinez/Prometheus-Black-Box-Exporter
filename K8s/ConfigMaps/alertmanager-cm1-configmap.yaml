@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  Alertmanager.yml: "global:\n  #slack_api_url: 'https://hooks.slack.com/services/T9J8LB9B3/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'\n  resolve_timeout: 5s\nroute:\n  group_wait: 30s\n  group_interval: 30s\n  receiver: 'mail-notifications'\n  routes:\n    - match:\n        severity: 'critical'\n      continue: true\n      receiver: 'mail-notifications'\n    - match:\n        severity: 'warning'\n      continue: true\n      receiver: 'mail-notifications'\n    # - match:\n    #     severity: 'critical'\n    #   continue: true\n    #   receiver: 'slack-notifications'\n    # - match:\n    #     severity: 'warning'\n    #   receiver: 'slack-notifications'\n\nreceivers:\n  - name: 'mail-notifications'\n    email_configs:\n    - to: from@domain.com\n      from: to@domain.com\n      smarthost: smtp-server:587\n      auth_username: username\n      auth_identity: identity\n      auth_password: password\n      send_resolved: true\n  \n  # - name: 'slack-notifications'\n  #   slack_configs:\n  #   - channel: '#CHANNEL_NAME'\n  #     send_resolved: true\n  #     title: '{{ template \"custom_summary\" . }}'\n  #     text: '{{ template \"custom_slack_message\" . }}'\n\ntemplates:\n- '/alertmanager/Notifications.tmpl'\n"
+kind: ConfigMap
+metadata:
+  annotations:
+    use-subpath: "true"
+  labels:
+    io.kompose.service: alertmanager
+  name: alertmanager-cm1

@@ -15,16 +15,17 @@
       }
     ]
   },
-  "description": "Blackbox exporter HTTP prober dashboard",
+  "description": "",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "gnetId": 13659,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 4,
   "links": [],
   "panels": [
     {
       "datasource": {
+        "default": true,
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
@@ -439,7 +440,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "probe_success{job=~\"$job\", instance=~\"$instance\"}",
+          "editorMode": "code",
+          "expr": "probe_success{}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -451,7 +453,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "probe_http_ssl{job=~\"$job\", instance=~\"$instance\"} > 0",
+          "editorMode": "code",
+          "expr": "probe_http_ssl{} > 0",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -463,7 +466,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "(probe_ssl_earliest_cert_expiry{job=~\"$job\", instance=~\"$instance\"} - time()) / 3600 / 24",
+          "editorMode": "code",
+          "expr": "(probe_ssl_earliest_cert_expiry{} - time()) / 3600 / 24",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -475,7 +479,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} > 0",
+          "editorMode": "code",
+          "expr": "probe_http_status_code{} > 0",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -487,7 +492,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "avg_over_time(probe_duration_seconds{job=~\"$job\", instance=~\"$instance\"}[1m])",
+          "editorMode": "code",
+          "expr": "avg_over_time(probe_duration_seconds{}[1m])",
           "format": "table",
           "hide": false,
           "instant": false,
@@ -501,7 +507,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "probe_tls_version_info{job=~\"$job\", instance=~\"$instance\"}",
+          "editorMode": "code",
+          "expr": "probe_tls_version_info{}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -513,7 +520,8 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "avg_over_time(probe_dns_lookup_time_seconds{job=~\"$job\", instance=~\"$instance\"}[1m])",
+          "editorMode": "code",
+          "expr": "avg_over_time(probe_dns_lookup_time_seconds{}[1m])",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -554,6 +562,12 @@
               "__name__ 5": true,
               "__name__ 6": true,
               "__name__ 7": true,
+              "category 2": true,
+              "category 3": true,
+              "category 4": true,
+              "category 5": true,
+              "category 6": true,
+              "category 7": true,
               "job": true,
               "job 1": true,
               "job 2": true,
@@ -563,6 +577,12 @@
               "job 6": true,
               "job 7": true,
               "job 8": true,
+              "name 2": true,
+              "name 3": true,
+              "name 4": true,
+              "name 5": true,
+              "name 6": true,
+              "name 7": true,
               "phase": true,
               "type": true,
               "type 1": true,
@@ -575,40 +595,49 @@
               "type 8": true,
               "version": false
             },
+            "includeByName": {},
             "indexByName": {
-              "Time 1": 9,
-              "Time 2": 13,
+              "Time 1": 11,
+              "Time 2": 14,
               "Time 3": 17,
-              "Time 4": 20,
-              "Time 5": 24,
-              "Time 6": 28,
-              "Time 7": 32,
-              "Value #A": 1,
-              "Value #B": 3,
-              "Value #C": 5,
-              "Value #D": 2,
-              "Value #E": 6,
-              "Value #F": 8,
-              "Value #G": 7,
-              "__name__ 1": 10,
-              "__name__ 2": 14,
-              "__name__ 3": 21,
-              "__name__ 4": 25,
-              "__name__ 5": 29,
-              "instance": 0,
-              "job 1": 11,
-              "job 2": 15,
+              "Time 4": 19,
+              "Time 5": 22,
+              "Time 6": 25,
+              "Time 7": 27,
+              "Value #A": 3,
+              "Value #B": 5,
+              "Value #C": 7,
+              "Value #D": 4,
+              "Value #E": 8,
+              "Value #F": 10,
+              "Value #G": 9,
+              "__name__ 1": 12,
+              "__name__ 2": 15,
+              "__name__ 3": 20,
+              "__name__ 4": 23,
+              "category 1": 1,
+              "category 2": 28,
+              "category 3": 30,
+              "category 4": 32,
+              "category 5": 34,
+              "category 6": 36,
+              "category 7": 38,
+              "instance": 2,
+              "job 1": 13,
+              "job 2": 16,
               "job 3": 18,
-              "job 4": 22,
-              "job 5": 26,
-              "job 6": 30,
-              "type 1": 12,
-              "type 2": 16,
-              "type 3": 19,
-              "type 4": 23,
-              "type 5": 27,
-              "type 6": 31,
-              "version": 4
+              "job 4": 21,
+              "job 5": 24,
+              "job 6": 26,
+              "job 7": 39,
+              "name 1": 0,
+              "name 2": 29,
+              "name 3": 31,
+              "name 4": 33,
+              "name 5": 35,
+              "name 6": 37,
+              "name 7": 40,
+              "version": 6
             },
             "renameByName": {
               "Value": "Up",
@@ -620,7 +649,9 @@
               "Value #F": "",
               "Value #G": "DNS Lookup Duration (s)",
               "Value #H": "Probe IP",
-              "instance": "Instance",
+              "category 1": "Category",
+              "instance": "URL",
+              "name 1": "Name",
               "type 6": "",
               "version": "TLS Version"
             }
@@ -629,233 +660,6 @@
       ],
       "transparent": true,
       "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "description": "Returns how long the probe took to complete in seconds",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 9
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "min"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "7.3.5",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "expr": "sum(probe_http_duration_seconds{job=~\"$job\", instance=~\"$instance\"}) by (instance)",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{ instance }}",
-          "refId": "A"
-        }
-      ],
-      "title": "HTTP Probe Duration",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": true,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 8,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "description": "Duration of http request by phase, summed over all redirects",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 10,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 27
-          },
-          "hiddenSeries": false,
-          "id": 6,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 0,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.3.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P1809F7CD0C75ACF3"
-              },
-              "expr": "probe_http_duration_seconds{job=~\"$job\", instance=~\"$instance\"}",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{ phase }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "HTTP Probe Phases Duration",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transformations": [],
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        }
-      ],
-      "repeat": "instance",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "$instance",
-      "type": "row"
     }
   ],
   "refresh": "1m",
@@ -865,64 +669,7 @@
     "prometheus"
   ],
   "templating": {
-    "list": [
-      {
-        "allValue": ".+",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "P1809F7CD0C75ACF3"
-        },
-        "definition": "label_values(probe_success, job)",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Job",
-        "multi": false,
-        "name": "job",
-        "options": [],
-        "query": "label_values(probe_success, job)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 2,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": ".+",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "P1809F7CD0C75ACF3"
-        },
-        "definition": "label_values(probe_success{job=~\"$job\"}, instance)",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Instance",
-        "multi": false,
-        "name": "instance",
-        "options": [],
-        "query": "label_values(probe_success{job=~\"$job\"}, instance)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 2,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-6h",
@@ -930,8 +677,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Website Status",
-  "uid": "NEzutrbMk",
-  "version": 2,
+  "title": "Blackbox Exporter Simple",
+  "uid": "UzE1uSc4HEs5d2",
+  "version": 1,
   "weekStart": ""
 }

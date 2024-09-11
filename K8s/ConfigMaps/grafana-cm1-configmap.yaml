@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  DataSources.yml: |
+    datasources:
+
+    - access: 'proxy'
+      editable: true
+      is_default: true
+      name: 'prometheus'
+      org_id: 1
+      type: 'prometheus'
+      url: 'http://prometheus:9090'
+      version: 1
+kind: ConfigMap
+metadata:
+  annotations:
+    use-subpath: "true"
+  labels:
+    io.kompose.service: grafana
+  name: grafana-cm1

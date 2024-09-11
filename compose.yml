@@ -1,5 +1,28 @@
 services:
+
+  manager:
+    image: ggmartinez/blackbox-exporter-discovery-manager 
+    tty: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    ports:
+      - 8000:8000
+    volumes:
+      - manager_data:/var/www/database
+    environment: 
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/database/database.sqlite
+    healthcheck:
+      test: curl --fail http://localhost:8000 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   blackbox-exporter:
+    depends_on:
+      - manager
     logging:
       driver: "json-file"
       options:
@@ -67,26 +90,8 @@ services:
       - grafana_data:/var/lib/grafana
       - ./Configurations/Grafana/DataSources.yml:/etc/grafana/provisioning/datasources/datasources.yml
       - ./Configurations/Grafana/Dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-      - ./Configurations/Grafana/BlackBoxExporter.json:/etc/grafana/provisioning/dashboards/BlackBoxExporter.json
-
-
-  manager:
-    image: ggmartinez/blackbox-exporter-discovery-manager 
-    tty: true
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "50m"
-    ports:
-      - 8000:8000
-    volumes:
-      - manager_data:/var/www/database
-
-    healthcheck:
-      test: curl --fail http://localhost:8000 || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - ./Configurations/Grafana/BlackBoxExporterDashboardDetailed.json:/etc/grafana/provisioning/dashboards/BlackBoxExporterDashboardDetailed.json
+      - ./Configurations/Grafana/BlackBoxExporterDashboardSimple.json:/etc/grafana/provisioning/dashboards/BlackBoxExporterDashboardSimple.json
 
 volumes:
   manager_data: {}
