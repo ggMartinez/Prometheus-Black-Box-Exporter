@@ -20,7 +20,6 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 13659,
   "graphTooltip": 0,
-  "id": 4,
   "links": [],
   "panels": [
     {
@@ -553,7 +552,9 @@
               "Value": false,
               "Value #A": false,
               "Value #B": false,
+              "Value #E": true,
               "Value #F": true,
+              "Value #G": true,
               "__name__": true,
               "__name__ 1": true,
               "__name__ 2": true,
@@ -593,7 +594,7 @@
               "type 6": true,
               "type 7": true,
               "type 8": true,
-              "version": false
+              "version": true
             },
             "includeByName": {},
             "indexByName": {
