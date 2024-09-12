@@ -90,8 +90,8 @@ services:
       - grafana_data:/var/lib/grafana
       - ./Configurations/Grafana/DataSources.yml:/etc/grafana/provisioning/datasources/datasources.yml
       - ./Configurations/Grafana/Dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-      - ./Configurations/Grafana/BlackBoxExporterDashboardDetailed.json:/etc/grafana/provisioning/dashboards/BlackBoxExporterDashboardDetailed.json
-      - ./Configurations/Grafana/BlackBoxExporterDashboardSimple.json:/etc/grafana/provisioning/dashboards/BlackBoxExporterDashboardSimple.json
+      - ./Configurations/Grafana/BlackboxExporterDashboardDetailed.json:/etc/grafana/provisioning/dashboards/BlackBoxExporterDashboardDetailed.json
+      - ./Configurations/Grafana/BlackboxExporterDashboardSimple.json:/etc/grafana/provisioning/dashboards/BlackBoxExporterDashboardSimple.json
 
 volumes:
   manager_data: {}
