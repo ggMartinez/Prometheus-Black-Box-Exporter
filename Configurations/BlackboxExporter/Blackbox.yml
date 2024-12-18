@@ -6,4 +6,7 @@ modules:
   http_post_2xx:
     prober: http
     http:
-      method: POST
+      method: GET
+      basic_auth:
+        username: '{{ .labels.username }}'
+        password: '{{ .labels.password }}'
